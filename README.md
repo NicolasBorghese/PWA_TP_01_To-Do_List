@@ -1,11 +1,11 @@
-<div>
+<div align="center">
 
 Programación Web Avanzada 2024
 
 <h3>Trabajo Práctico N°1: React</h3>
 Aplicación de Lista de Tareas (To-Do List)
 
-<div>
+</div>
 
 ---
 
