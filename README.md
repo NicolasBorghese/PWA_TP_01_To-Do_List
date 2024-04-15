@@ -1,4 +1,4 @@
-<div align="center">
+<div>
 
 Programación Web Avanzada 2024
 
