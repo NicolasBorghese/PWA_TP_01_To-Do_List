@@ -1,8 +1,8 @@
 <div align="center">
-Programación Web Avanzada 2024
+    Programación Web Avanzada 2024
 
-<h1>Trabajo Práctico N°1: React</h1>
-Aplicación de Lista de Tareas (To-Do List)
+    <h3>Trabajo Práctico N°1: React</h3>
+    Aplicación de Lista de Tareas (To-Do List)
 <div>
 
 ---
