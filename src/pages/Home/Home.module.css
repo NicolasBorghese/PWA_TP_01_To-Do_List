@@ -1,0 +1,19 @@
+.contenedor{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cabezalTareas{
+    /*width: 100%;*/
+    display: flex;
+    border: 2px solid black;
+    margin-bottom: 10px;
+}
+
+.contadores {
+    display: flex;
+    margin-bottom: 20px;
+    color:rgb(241, 206, 93);
+    justify-content: space-between;
+}

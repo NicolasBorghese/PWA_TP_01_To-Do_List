@@ -1,0 +1,20 @@
+1. La aplicación debe tener un boton de agregar tareas
+2. Se debe poder marcar las tareas como completadas o eliminarlas
+3. De cada tarea se debe visualizar su descripción y su estado (completada o no completada)
+4. Las tareas se visualizan todas en una lista
+5. Debe haber un contador de tareas que muestre la cantidad de tareas que hay y la cantidad que se
+encuentran completadas
+6. Debe haber un buscador que permita ingresar un texto y que muestre todas las tareas que su descripción 
+coincida con el texto ingresado
+7. Si no hay tareas, se debe mostrar un mensaje que indique que el usuario está listo para descansar
+
+Extra:
+8. Cada 5 tareas se debe crear una nueva página
+
+Tips:
+Arrancar por diseñar los componentes más primitivos de la aplicación
+
+Componentes:
+
+I. El componente tarea tendrá un cabezal que indicará el estado (completada o no completada)
+acompañado de un boton de Completar/Reiniciar y un boton de Borrar.

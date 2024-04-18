@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'press_start_2pregular';
+    src: url('../../fonts/pressstart2p-regular-webfont.woff2') format('woff2'),
+         url('../../fonts/pressstart2p-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.contenedorTarea {
+    /*width: 100%;*/
+    border: 2px solid black;
+    margin-bottom: 10px;
+}
+
+.opcionesTarea {
+    box-sizing: border-box;
+    display: flex;
+    height: 30px;
+    border-bottom: 2px solid black;
+}
+
+.estadoTarea {
+    padding-left: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: flex-end;*/
+    justify-content: space-around;
+    width: 65%;
+}
+
+.botonCompletar {
+    box-sizing: border-box;
+    width: 20%;
+    font-family: 'press_start_2pregular';
+    border-bottom: 2px solid black;
+    background-color: rgb(111, 149, 230);
+}
+
+.botonCompletar:hover{
+    background-color: rgb(59, 133, 253);
+}
+
+.botonCompletar:active{
+    background-color: rgb(133, 150, 199);
+}
+
+.botonReiniciar {
+    box-sizing: border-box;
+    width: 20%;
+    font-family: 'press_start_2pregular';
+    border-bottom: 2px solid black;
+    background-color: rgb(230, 220, 111);
+}
+
+.botonReiniciar:hover{
+    background-color: rgb(243, 253, 59);
+}
+
+.botonReiniciar:active{
+    background-color: rgb(198, 199, 133);
+}
+
+.botonBorrar {
+    box-sizing: border-box;
+    width: 15%;
+    font-family: 'press_start_2pregular';
+    border-bottom: 2px solid black;
+    background-color: rgb(230, 111, 111);
+}
+
+.botonBorrar:hover{
+    background-color: rgb(253, 59, 59);
+}
+
+.botonBorrar:active{
+    background-color: rgb(199, 133, 133);
+}
+
+.noCompleta {
+    background-color: rgb(245, 184, 170);
+}
+
+.completa {
+    background-color: rgb(170, 245, 214);
+}
+
+.descripcion {
+    padding: 30px
+}
