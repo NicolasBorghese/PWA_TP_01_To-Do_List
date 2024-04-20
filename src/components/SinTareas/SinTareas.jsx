@@ -4,7 +4,7 @@ const SinTareas = () => {
 
     return (
         <div className={style.sinTareas}>
-            No tiene tareas pendientes, puede descansar
+            No hay tareas pendientes, puede descansar
         </div>
     )
 }

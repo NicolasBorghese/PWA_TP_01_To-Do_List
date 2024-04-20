@@ -9,7 +9,7 @@ Aplicación de Lista de Tareas (To-Do List)
 
 ---
 
-<h3>Integrantes</h3>
+<h3>Grupo 4</h3>
 
 - Borghese Nicolás FAI-997
 - Blanco Julián FAI-3858

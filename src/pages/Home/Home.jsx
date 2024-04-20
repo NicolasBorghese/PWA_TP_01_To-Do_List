@@ -5,13 +5,14 @@ import BotonAgregarTarea from "../../components/BotonAgregarTarea/BotonAgregarTa
 import InputBuscarTarea from "../../components/InputBuscarTarea/InputBuscarTarea";
 import Tarea from "../../components/Tarea/Tarea";
 import SinTareas from "../../components/SinTareas/SinTareas";
+import FormularioTarea from "../../components/FormularioTarea/FormularioTarea";
 
 const tituloApp = {
     texto: "To-Do List"
 }
 
-var tareasTotales = 10;
-var tareasCompletas = 5;
+var tareasTotales = 0;
+var tareasCompletas = 0;
 
 const Home = () =>{
 
@@ -19,17 +20,18 @@ const Home = () =>{
         <div>
             <TituloPrincipal texto={tituloApp.texto}/>
             <div className={style.contenedor}>
-                <div className={style.cabezalTareas}>
+                <div id="cabezalTareas" className={style.cabezalTareas}>
                     <BotonAgregarTarea />
                     <InputBuscarTarea />
                 </div>
+                <FormularioTarea />
                 <div className={style.contadores}>
                     <div>Tareas Totales: {tareasTotales}</div>
                     <div>Tareas Completas: {tareasCompletas}</div>
                 </div>
+                {tareasTotales == 0 && <SinTareas />}
                 <Tarea estado={true} descripcion={"Sacar a pasear al perro"}/>
                 <Tarea estado={false} descripcion={"Estudiar React"}/>
-                <SinTareas />
             </div>
         </div>
     )
