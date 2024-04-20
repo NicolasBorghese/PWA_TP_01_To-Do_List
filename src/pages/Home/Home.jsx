@@ -4,12 +4,11 @@ import TituloPrincipal from "../../components/TituloPrincipal/TituloPrincipal";
 import BotonAgregarTarea from "../../components/BotonAgregarTarea/BotonAgregarTarea";
 import InputBuscarTarea from "../../components/InputBuscarTarea/InputBuscarTarea";
 import Tarea from "../../components/Tarea/Tarea";
-import SinTareas from "../../components/SinTareas/SinTareas";
 import FormularioTarea from "../../components/FormularioTarea/FormularioTarea";
+import CartelSimple from "../../components/CartelSimple/CartelSimple";
 
-const tituloApp = {
-    texto: "To-Do List"
-}
+const tituloApp = "To-Do List"
+const sinTarea = "No hay tareas pendientes, puede descansar"
 
 var tareasTotales = 0;
 var tareasCompletas = 0;
@@ -18,20 +17,19 @@ const Home = () =>{
 
     return (
         <div>
-            <TituloPrincipal texto={tituloApp.texto}/>
+            <TituloPrincipal texto={tituloApp}/>
             <div className={style.contenedor}>
-                <div id="cabezalTareas" className={style.cabezalTareas}>
+                <div className={style.barraAgregarTareas}>
                     <BotonAgregarTarea />
                     <InputBuscarTarea />
                 </div>
                 <FormularioTarea />
-                <div className={style.contadores}>
-                    <div>Tareas Totales: {tareasTotales}</div>
-                    <div>Tareas Completas: {tareasCompletas}</div>
+                <div className={style.contadorTareas}>
+                    <div>Tareas Completas: {tareasCompletas}/{tareasTotales}</div>
                 </div>
-                {tareasTotales == 0 && <SinTareas />}
-                <Tarea estado={true} descripcion={"Sacar a pasear al perro"}/>
-                <Tarea estado={false} descripcion={"Estudiar React"}/>
+                {tareasTotales == 0 && <CartelSimple mensaje={sinTarea} tipoCartel={"default"}/>}
+                <Tarea estado={true} mensaje={"Sacar a pasear al perro"}/>
+                <Tarea estado={false} mensaje={"Estudiar React"}/>
             </div>
         </div>
     )

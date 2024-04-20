@@ -1,0 +1,17 @@
+.cartelSimple {
+    padding: 30px;
+}
+
+.fondoDefault {
+    background-color: rgb(230, 228, 111);
+    margin-bottom: 10px;
+    border: 2px solid black;
+}
+
+.fondoRojo {
+    background-color: rgb(245, 184, 170);
+}
+
+.fondoCeleste {
+    background-color: rgb(170, 245, 214);
+}

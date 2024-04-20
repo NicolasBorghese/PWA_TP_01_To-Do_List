@@ -1,6 +1,5 @@
 import { useState } from "react";
 import style from "./BotonAgregarTarea.module.css";
-import FormularioTarea from "../FormularioTarea/FormularioTarea";
 
 const BotonAgregarTarea = () => {
 

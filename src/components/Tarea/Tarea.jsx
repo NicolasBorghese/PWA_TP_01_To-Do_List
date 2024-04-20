@@ -1,31 +1,33 @@
 import style from "./Tarea.module.css";
+import BotonBorrar from "../BotonBorrar/BotonBorrar";
+import BotonCompletar from "../BotonCompletar/BotonCompletar";
+import CartelSimple from "../CartelSimple/CartelSimple";
 
-const Tarea = ({descripcion, estado}) => {
+const Tarea = ({estado, mensaje}) => {
 
-    var estadoTarea = "No Completada";
-    var estiloColorFondo = style.noCompleta;
+    var estadoTarea = "No Completada"
+    var colorFondo = style.completar
     var botonCompletar = "Completar"
-    var botonCompletarEstilo = style.botonCompletar
+    var colorCartel = "fondoRojo"
 
     if(estado){
         estadoTarea = "Completada"
-        estiloColorFondo = style.completa;
+        colorFondo = style.reiniciar
         botonCompletar = "Reiniciar"
-        botonCompletarEstilo = style.botonReiniciar
+        colorCartel = "fondoCeleste"
+
     }
 
     return (
-        <div className={style.contenedorTarea + " " + estiloColorFondo}>
+        <div className={style.contenedorTarea}>
             <div className={style.opcionesTarea}>
-                <div className={style.estadoTarea}>
+                <div className={style.estadoTarea + " " + colorFondo}>
                     {estadoTarea}
                 </div>
-                <button className={botonCompletarEstilo}>{botonCompletar}</button>
-                <button className={style.botonBorrar}>Borrar</button>
+                <BotonCompletar tipoBoton={botonCompletar} />
+                <BotonBorrar />
             </div>
-            <div className={style.descripcion}>
-                {descripcion}
-            </div>
+            <CartelSimple mensaje={mensaje} colorCartel={colorCartel} />
         </div>
     )
 }
