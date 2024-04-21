@@ -1,9 +1,13 @@
 import style from "./BotonBorrar.module.css";
 
-const BotonBorrar = () => {
+const BotonBorrar = ({funcionBorrar}) => {
+
+    const handleClick = () => {
+        funcionBorrar()
+    }
 
     return (
-        <button className={style.botonBorrar}>Borrar</button>
+        <button className={style.botonBorrar} onClick={handleClick}>Borrar</button>
     )
 }
 

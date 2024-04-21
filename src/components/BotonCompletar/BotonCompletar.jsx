@@ -1,15 +1,22 @@
+import { useState } from "react";
 import style from "./BotonCompletar.module.css";
 
-const BotonCompletar = ({tipoBoton}) => {
+const BotonCompletar = ({tipoBoton, funcion}) => {
 
-    var estilo = style.botonCompletar
+    const [estilo, setEstilo] = useState(style.botonCompletar)
 
-    if (tipoBoton != "Completar"){
-        estilo = style.botonReiniciar
+    const handleClick = () => {
+        funcion();
+
+        if (estilo == style.botonCompletar){
+            setEstilo(style.botonReiniciar)
+        } else {
+            setEstilo(style.botonCompletar)
+        }
     }
 
     return (
-        <button className={estilo}>{tipoBoton}</button>
+        <button className={estilo} onClick={handleClick}>{tipoBoton}</button>
     )
 }
 

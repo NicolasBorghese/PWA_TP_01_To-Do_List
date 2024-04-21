@@ -1,21 +1,19 @@
 import { useState } from "react";
 import style from "./BotonAgregarTarea.module.css";
 
-const BotonAgregarTarea = () => {
+/**
+ * Recibe una función a ejecutar y un valor (true/false) para procesarla
+ * 
+ * La función recibida se ejecuta al hacer click en este componente
+ */
+const BotonAgregarTarea = ({onClickHandler, valorFormulario}) => {
 
-    const [agregar, setAgregar] = useState(false);
-
-    const onClickHandler = () => {
-
-        if (agregar){
-            setAgregar(false);
-        } else {
-            setAgregar(true);
-        }
-    };
+    const handleClick = () => {
+        onClickHandler(valorFormulario);
+    }
 
     return (
-        <button className={style.botonAgregarTarea} onClick={onClickHandler}>Agregar Tarea</button>
+        <button className={style.botonAgregarTarea} onClick={handleClick}>Agregar Tarea</button>
     )
 }
 

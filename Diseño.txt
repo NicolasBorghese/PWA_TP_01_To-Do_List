@@ -13,8 +13,3 @@ Extra:
 
 Tips:
 Arrancar por diseñar los componentes más primitivos de la aplicación
-
-Componentes:
-
-I. El componente tarea tendrá un cabezal que indicará el estado (completada o no completada)
-acompañado de un boton de Completar/Reiniciar y un boton de Borrar.

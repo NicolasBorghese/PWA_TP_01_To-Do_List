@@ -1,12 +1,26 @@
+import { useState } from "react";
+import Tarea from "../Tarea/Tarea";
 import style from "./FormularioTarea.module.css";
 
-const FormularioTarea = () => {
+const FormularioTarea = ({onClickHandler, idNuevaTarea, funcionCompletar, funcionBorrar}) => {
+
+    const [descripcion, setDescripcion] = useState('');
+
+    const handleChange = (event) => {
+        setDescripcion(event.target.value);
+    }
+
+    const handleClick = () => {
+        const nuevaTarea = <Tarea key={idNuevaTarea} id={idNuevaTarea} mensaje={descripcion} funcionCompletar={funcionCompletar} funcionBorrar={funcionBorrar}/>
+        onClickHandler(nuevaTarea);
+        setDescripcion("");
+    }
 
     return (
         <div className={style.contenedorDescripcion}>
             <div className={style.descripcionTarea}> Describa la tarea </div>
-            <input type="text"  className={style.inputDescripcion}></input>
-            <button className={style.botonAgregar}> + </button>
+            <input type="text"  className={style.inputDescripcion} onChange={handleChange} value={descripcion}></input>
+            <button className={style.botonAgregar} onClick={handleClick}> + </button>
         </div>
     )
 }

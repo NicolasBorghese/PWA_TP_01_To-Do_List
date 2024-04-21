@@ -1,8 +1,8 @@
 import style from "./InputBuscarTarea.module.css";
 
-const InputBuscarTarea = () => {
+const InputBuscarTarea = ({onChangeHandler}) => {
     return (
-        <input className={style.inputBuscarTarea} type="text" placeholder="Buscar..."></input>
+        <input className={style.inputBuscarTarea} onChange={onChangeHandler} type="text" placeholder="Buscar..."></input>
     )
 }
 
