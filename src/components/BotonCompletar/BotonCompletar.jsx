@@ -8,7 +8,7 @@ const BotonCompletar = ({tipoBoton, funcion}) => {
     const handleClick = () => {
         funcion();
 
-        if (estilo == style.botonCompletar){
+        if (tipoBoton == "Completar"){
             setEstilo(style.botonReiniciar)
         } else {
             setEstilo(style.botonCompletar)

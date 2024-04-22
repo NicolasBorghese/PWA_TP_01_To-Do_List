@@ -18,9 +18,7 @@ const Home = () => {
     const [idNuevaTarea, setIdNuevaTarea] = useState(0);
     const [formularioAgregarTarea, setFormularioAgregarTarea] = useState(false);
     const [arregloTareas, setArregloTareas] = useState([]);
-
-    const [arregloFiltrado, setArregloFiltrado] = useState([]);
-    const [filtroActivado, setFiltroActivado] = useState(false);
+    const [valorFiltro, setValorFiltro] = useState("");
 
     const activarFormularioAgregarTarea = (valorFormulario) => {
         if (valorFormulario){
@@ -62,7 +60,7 @@ const Home = () => {
             }
         });
 
-        /*var iter = 0
+        var iter = 0
         var cantElem = arregloTareas.length
         var encontrado = false
 
@@ -72,14 +70,12 @@ const Home = () => {
 
                 const nuevoArreglo = [...arregloTareas]
 
-                console.log("Se rompe 1");
                 if (estaCompleta){
-                    console.log("Se rompe 2");
-                    nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={true} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar}/>
-                    console.log("Se rompe 2.1");
+                    nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={true} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />
+
                 } else {
-                    console.log("Se rompe 3");
-                    nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={false} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar}/>
+
+                    nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={false} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />
                 }
                 
                 setArregloTareas(() => {
@@ -90,8 +86,7 @@ const Home = () => {
             iter++;
 
         } while (!encontrado && iter < cantElem)
-        console.log("Se rompe saliendo de la funcion");*/
-        
+
     };
     
     /*const borrarTarea = (id) => {
@@ -148,22 +143,15 @@ const Home = () => {
             });
         }
         setArregloTareas(prevArregloTareas => { 
-            return prevArregloTareas.filter(n => n.props.id !== id) 
+            return prevArregloTareas.filter(tarea => tarea.props.id != id) 
         });
     }
 
     const filtrarTareas = (valor) => {
 
-        if (valor != ""){
-            setFiltroActivado(true);
-
-            setArregloFiltrado(() => {
-                return arregloTareas.filter(tarea => tarea.props.mensaje.includes(valor))
-            });
-
-        } else {
-            setFiltroActivado(false);
-        }
+        setValorFiltro (() => {
+            return valor
+        })
     }
 
     return (
@@ -185,20 +173,20 @@ const Home = () => {
                     {tareasTotales == tareasCompletas && <CartelSimple mensaje={sinTarea} tipoCartel={"default"}/>}
 
                     {
-                        !filtroActivado && (
-                            arregloTareas.map((tareaEnColeccion) => {
+                        (
+                            arregloTareas.filter(tarea => tarea.props.mensaje.includes(valorFiltro)).map((tareaEnColeccion) => {
                                 return tareaEnColeccion;
                             })
                         )
                     }
 
-                    {
+                    {/*
                         filtroActivado && (
                             arregloFiltrado.map((tareaEnColeccion) => {
                                     return tareaEnColeccion;
                             })
                         )
-                    }
+                    */}
                 </div>
             </div>
             <PieDePagina />

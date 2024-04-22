@@ -16,6 +16,21 @@ Aplicación de Lista de Tareas (To-Do List)
 
 ---
 
+<h3>Descripción de la aplicación</h3>
+
+La aplicación es un sitio web para administrar las tareas de un usuario. Permite agregar nuevas tareas, cambiar su estado y borrarlas. Cuenta con un contador para saber cuantas tareas se encuentran completas y un filtro para buscarlas más rápido.
+
+---
+
+<h3>Instrucciones de instalación</h3>
+
+1. Ubicar la terminal en el directorio deseado para instalar el proyecto y clonar el repositorio ejecutando en consola el comando: `git clone https://github.com/NicolasBorghese/PWA_TP_01_To-Do_List.git`
+2. Acceder a la carpeta donde se instalo el proyecto con el comando: `cd PWA_TP_01_To-Do_List`
+3. Instalar las dependencias necesarias para el proyecto ejecutando el comando: `npm install`
+4. Ejecutar la aplicación utilizando el comando `npm start`
+
+---
+
 <h3>Funcionamiento de los archivos iniciales</h3>
 
 <h4>index.js</h4>

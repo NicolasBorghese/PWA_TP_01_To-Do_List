@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRef } from "react";
 import style from "./Tarea.module.css";
 import BotonBorrar from "../BotonBorrar/BotonBorrar";
 import BotonCompletar from "../BotonCompletar/BotonCompletar";
@@ -7,20 +6,25 @@ import CartelSimple from "../CartelSimple/CartelSimple";
 
 const Tarea = ({id, mensaje, estadoRecibido, funcionCompletar, funcionBorrar}) => {
 
-    const [estado, setEstado] = useState(false);
-    const [estadoTareaTexto, setEstadoTareaTexto] = useState("No Completada");
-    const [colorFondo, setColorFondo] = useState(style.completar);
-    const [botonCompletar, setBotonCompletar] = useState("Completar");
-    const [colorCartel, setColorCartel] = useState("fondoRojo");
-
+    var estadoTarea = "No Completada"
+    var estiloFondo = style.completar
+    var accionBoton = "Completar";
+    var cartelFondo = ("fondoRojo")
+    
     if (estadoRecibido){
-        setEstado(true);
-        setEstadoTareaTexto("Completada");
-        setColorFondo(style.reiniciar);
-        setBotonCompletar("Reiniciar");
-        setColorCartel("fondoCeleste");
+        
+        estadoTarea = "Completada";
+        estiloFondo = style.reiniciar;
+        accionBoton = "Reiniciar";
+        cartelFondo = ("fondoCeleste");
     }
     
+    const [estado, setEstado] = useState(estadoRecibido);
+    const [estadoTareaTexto, setEstadoTareaTexto] = useState(estadoTarea);
+    const [colorFondo, setColorFondo] = useState(estiloFondo);
+    const [botonCompletar, setBotonCompletar] = useState(accionBoton);
+    const [colorCartel, setColorCartel] = useState(cartelFondo);
+
     const modificarEstado = () => {
 
         if (!estado){
