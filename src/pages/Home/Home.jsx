@@ -19,7 +19,6 @@ const Home = () => {
     const [formularioAgregarTarea, setFormularioAgregarTarea] = useState(false);
     const [arregloTareas, setArregloTareas] = useState([]);
 
-    const [textoFiltro, setTextoFiltro] = useState("");
     const [arregloFiltrado, setArregloFiltrado] = useState([]);
     const [filtroActivado, setFiltroActivado] = useState(false);
 
@@ -56,35 +55,43 @@ const Home = () => {
         La lógica detrás de esta estructura es utilizar la versión de la función setState que acepta una función como argumento en lugar de un valor directo. Esta función de actualización del estado recibe el estado anterior como argumento y devuelve el nuevo estado.
         */
         setTareasCompletas(prevTareasCompletas => {
-
-            var iter = 0
-            var cantElem = arregloTareas.length
-            var encontrado = false
-
-            do {
-
-                if(arregloTareas[iter].props.id == idTarea){
-
-                    const nuevoArreglo = [...arregloTareas]
-                    nuevoArreglo[iter] = nuevoArreglo[iter]
-                    setArregloTareas(() => {
-                        return nuevoArreglo
-                    })
-                }
-                iter++;
-
-            } while (!encontrado && iter < cantElem)
-
-            setArregloTareas(prevArregloTareas => { 
-                return prevArregloTareas
-            });
-
             if (estaCompleta) {
                 return prevTareasCompletas + 1;
             } else {
                 return prevTareasCompletas - 1;
             }
         });
+
+        /*var iter = 0
+        var cantElem = arregloTareas.length
+        var encontrado = false
+
+        do {
+
+            if(arregloTareas[iter].props.id == idTarea){
+
+                const nuevoArreglo = [...arregloTareas]
+
+                console.log("Se rompe 1");
+                if (estaCompleta){
+                    console.log("Se rompe 2");
+                    nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={true} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar}/>
+                    console.log("Se rompe 2.1");
+                } else {
+                    console.log("Se rompe 3");
+                    nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={false} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar}/>
+                }
+                
+                setArregloTareas(() => {
+                    return nuevoArreglo
+                })
+
+            }
+            iter++;
+
+        } while (!encontrado && iter < cantElem)
+        console.log("Se rompe saliendo de la funcion");*/
+        
     };
     
     /*const borrarTarea = (id) => {
@@ -147,23 +154,15 @@ const Home = () => {
 
     const filtrarTareas = (valor) => {
 
-        setArregloFiltrado(prevArregloFiltrado => {
-            return arregloTareas
-        });
-
         if (valor != ""){
             setFiltroActivado(true);
 
-            /*setArregloFiltrado(() => { 
+            setArregloFiltrado(() => {
                 return arregloTareas.filter(tarea => tarea.props.mensaje.includes(valor))
-            });*/
-            setArregloFiltrado(prevArregloTareas => {
-                return prevArregloTareas.filter(tarea => tarea.props.mensaje.includes(valor))
             });
 
         } else {
             setFiltroActivado(false);
-            setArregloFiltrado([]); // Limpiar el arreglo filtrado al quitar el filtro
         }
     }
 
@@ -189,13 +188,16 @@ const Home = () => {
                         !filtroActivado && (
                             arregloTareas.map((tareaEnColeccion) => {
                                 return tareaEnColeccion;
-                            }))
+                            })
+                        )
                     }
+
                     {
                         filtroActivado && (
                             arregloFiltrado.map((tareaEnColeccion) => {
                                     return tareaEnColeccion;
-                            }))
+                            })
+                        )
                     }
                 </div>
             </div>
