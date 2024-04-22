@@ -6,6 +6,7 @@ import InputBuscarTarea from "../../components/InputBuscarTarea/InputBuscarTarea
 import FormularioTarea from "../../components/FormularioTarea/FormularioTarea";
 import CartelSimple from "../../components/CartelSimple/CartelSimple";
 import PieDePagina from "../../components/PieDePagina/PieDePagina";
+import Tarea from "../../components/Tarea/Tarea"
 
 const tituloApp = "To-Do List"
 const sinTarea = "No hay tareas pendientes, puede descansar"
@@ -17,7 +18,10 @@ const Home = () => {
     const [idNuevaTarea, setIdNuevaTarea] = useState(0);
     const [formularioAgregarTarea, setFormularioAgregarTarea] = useState(false);
     const [arregloTareas, setArregloTareas] = useState([]);
+
     const [textoFiltro, setTextoFiltro] = useState("");
+    const [arregloFiltrado, setArregloFiltrado] = useState([]);
+    const [filtroActivado, setFiltroActivado] = useState(false);
 
     const activarFormularioAgregarTarea = (valorFormulario) => {
         if (valorFormulario){
@@ -47,11 +51,34 @@ const Home = () => {
         console.log(tareasCompletas)
     }*/
 
-    const completarTarea = (estaCompleta) => {
+    const completarTarea = (estaCompleta, idTarea) => {
         /*
         La lógica detrás de esta estructura es utilizar la versión de la función setState que acepta una función como argumento en lugar de un valor directo. Esta función de actualización del estado recibe el estado anterior como argumento y devuelve el nuevo estado.
         */
         setTareasCompletas(prevTareasCompletas => {
+
+            var iter = 0
+            var cantElem = arregloTareas.length
+            var encontrado = false
+
+            do {
+
+                if(arregloTareas[iter].props.id == idTarea){
+
+                    const nuevoArreglo = [...arregloTareas]
+                    nuevoArreglo[iter] = nuevoArreglo[iter]
+                    setArregloTareas(() => {
+                        return nuevoArreglo
+                    })
+                }
+                iter++;
+
+            } while (!encontrado && iter < cantElem)
+
+            setArregloTareas(prevArregloTareas => { 
+                return prevArregloTareas
+            });
+
             if (estaCompleta) {
                 return prevTareasCompletas + 1;
             } else {
@@ -59,7 +86,7 @@ const Home = () => {
             }
         });
     };
-
+    
     /*const borrarTarea = (id) => {
         var iterTarea = 0;
         var tareaEncontrada = false;
@@ -119,9 +146,25 @@ const Home = () => {
     }
 
     const filtrarTareas = (valor) => {
-        setTextoFiltro(() => {
-            return valor
+
+        setArregloFiltrado(prevArregloFiltrado => {
+            return arregloTareas
         });
+
+        if (valor != ""){
+            setFiltroActivado(true);
+
+            /*setArregloFiltrado(() => { 
+                return arregloTareas.filter(tarea => tarea.props.mensaje.includes(valor))
+            });*/
+            setArregloFiltrado(prevArregloTareas => {
+                return prevArregloTareas.filter(tarea => tarea.props.mensaje.includes(valor))
+            });
+
+        } else {
+            setFiltroActivado(false);
+            setArregloFiltrado([]); // Limpiar el arreglo filtrado al quitar el filtro
+        }
     }
 
     return (
@@ -142,12 +185,18 @@ const Home = () => {
 
                     {tareasTotales == tareasCompletas && <CartelSimple mensaje={sinTarea} tipoCartel={"default"}/>}
 
-                    {arregloTareas.map((tareaEnColeccion) => {
-                        if(tareaEnColeccion.props.mensaje.includes(textoFiltro)){
-                            return tareaEnColeccion;
-                        }
-                    })}
-
+                    {
+                        !filtroActivado && (
+                            arregloTareas.map((tareaEnColeccion) => {
+                                return tareaEnColeccion;
+                            }))
+                    }
+                    {
+                        filtroActivado && (
+                            arregloFiltrado.map((tareaEnColeccion) => {
+                                    return tareaEnColeccion;
+                            }))
+                    }
                 </div>
             </div>
             <PieDePagina />

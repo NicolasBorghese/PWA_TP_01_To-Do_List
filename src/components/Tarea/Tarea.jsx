@@ -1,16 +1,25 @@
 import { useState } from "react";
+import { useRef } from "react";
 import style from "./Tarea.module.css";
 import BotonBorrar from "../BotonBorrar/BotonBorrar";
 import BotonCompletar from "../BotonCompletar/BotonCompletar";
 import CartelSimple from "../CartelSimple/CartelSimple";
 
-const Tarea = ({id, mensaje, funcionCompletar, funcionBorrar}) => {
+const Tarea = ({id, mensaje, estadoRecibido, funcionCompletar, funcionBorrar}) => {
 
     const [estado, setEstado] = useState(false);
     const [estadoTareaTexto, setEstadoTareaTexto] = useState("No Completada");
     const [colorFondo, setColorFondo] = useState(style.completar);
     const [botonCompletar, setBotonCompletar] = useState("Completar");
     const [colorCartel, setColorCartel] = useState("fondoRojo");
+
+    if (estadoRecibido){
+        setEstado(true);
+        setEstadoTareaTexto("Completada");
+        setColorFondo(style.reiniciar);
+        setBotonCompletar("Reiniciar");
+        setColorCartel("fondoCeleste");
+    }
     
     const modificarEstado = () => {
 
@@ -21,7 +30,7 @@ const Tarea = ({id, mensaje, funcionCompletar, funcionBorrar}) => {
             setBotonCompletar("Reiniciar");
             setColorCartel("fondoCeleste");
 
-            funcionCompletar(true);
+            funcionCompletar(true, id);
         } else {
             setEstado(false);
             setEstadoTareaTexto("No Completada");
@@ -29,7 +38,7 @@ const Tarea = ({id, mensaje, funcionCompletar, funcionBorrar}) => {
             setBotonCompletar("Completar");
             setColorCartel("fondoRojo");
 
-            funcionCompletar(false);
+            funcionCompletar(false, id);
         }
     }
 
