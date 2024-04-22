@@ -15,8 +15,10 @@ const Home = () => {
     const [tareasTotales, setTareasTotales] = useState(0);
     const [tareasCompletas, setTareasCompletas] = useState(0);
     const [idNuevaTarea, setIdNuevaTarea] = useState(0);
-
     const [formularioAgregarTarea, setFormularioAgregarTarea] = useState(false);
+    const [arregloTareas, setArregloTareas] = useState([]);
+    const [textoFiltro, setTextoFiltro] = useState("");
+
     const activarFormularioAgregarTarea = (valorFormulario) => {
         if (valorFormulario){
             setFormularioAgregarTarea(false);
@@ -25,7 +27,6 @@ const Home = () => {
         }
     }
 
-    const [arregloTareas, setArregloTareas] = useState([]);
     const agregarTarea = (tarea) => {
         arregloTareas.push(tarea);
         setArregloTareas(arregloTareas);
@@ -117,9 +118,10 @@ const Home = () => {
         });
     }
 
-    const [tareasFiltradas, setTareasFiltradas] = useState([]);
-    const filtrarTareas = (event) => {
-        var valor = event.target.value;
+    const filtrarTareas = (valor) => {
+        setTextoFiltro(() => {
+            return valor
+        });
     }
 
     return (
@@ -131,16 +133,21 @@ const Home = () => {
                         <BotonAgregarTarea onClickHandler={activarFormularioAgregarTarea} valorFormulario={formularioAgregarTarea}/>
                         <InputBuscarTarea onChangeHandler={filtrarTareas}/>
                     </div>
+
                     {formularioAgregarTarea && <FormularioTarea onClickHandler={agregarTarea} idNuevaTarea={idNuevaTarea} funcionCompletar={completarTarea} funcionBorrar={borrarTarea}/>}
+                    
                     <div className={style.contadorTareas}>
                         <div>Tareas Completas: {tareasCompletas}/{tareasTotales}</div>
                     </div>
+
                     {tareasTotales == tareasCompletas && <CartelSimple mensaje={sinTarea} tipoCartel={"default"}/>}
-                    {console.log("Arreglo de Tareas en Home")}
-                    {console.log(arregloTareas)}
+
                     {arregloTareas.map((tareaEnColeccion) => {
-                        return tareaEnColeccion;
+                        if(tareaEnColeccion.props.mensaje.includes(textoFiltro)){
+                            return tareaEnColeccion;
+                        }
                     })}
+
                 </div>
             </div>
             <PieDePagina />
