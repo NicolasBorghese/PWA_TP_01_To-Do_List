@@ -1,13 +1,15 @@
 @font-face {
-    font-family: 'press_start_2pregular';
-    src: url('./fonts/pressstart2p-regular-webfont.woff2') format('woff2'),
-         url('./fonts/pressstart2p-regular-webfont.woff') format('woff');
+    font-family: "press_start_2pregular";
+    src: url("./fonts/pressstart2p-regular-webfont.woff2") format("woff2"),
+        url("./fonts/pressstart2p-regular-webfont.woff") format("woff");
     font-weight: normal;
     font-style: normal;
 }
 
 body {
-  margin: 0;
-  background-color: rgb(26, 32, 43);
-  font-family: 'press_start_2pregular';
+    background-color: rgb(26, 32, 43);
+    font-family: "press_start_2pregular";
+
+    margin: 0;
+    padding: 0;
 }
