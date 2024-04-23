@@ -29,19 +29,15 @@ const Home = () => {
     }
 
     const agregarTarea = (tarea) => {
+
         arregloTareas.push(tarea);
         setArregloTareas(arregloTareas);
-        /*setArregloTareas(prevArregloTareas => {
-            return prevArregloTareas.push(tarea)
-        })*/
+
         setTareasTotales(tareasTotales + 1);
 
         setIdNuevaTarea(prevIdNuevaTarea => {
             return prevIdNuevaTarea + 1
         });
-
-        console.log("Agrego tareas")
-        console.log(arregloTareas)
     }
 
     const completarTarea = (estaCompleta, idTarea) => {
@@ -60,43 +56,25 @@ const Home = () => {
         var cantElem = arregloTareas.length
         var encontrado = false
 
-        console.log("arreglo de tareas previo a completar Tarea")
-        console.log(arregloTareas)
-
         do {
 
             if(arregloTareas[iter].props.id == idTarea){
-
-                const nuevoArreglo = [...arregloTareas];
-
-                console.log("previo a un cambio")
-                console.log(nuevoArreglo)
                 
                 if (estaCompleta){
-                    nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={true} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />
+                    arregloTareas.splice(iter, 1, <Tarea key={idTarea} id={idTarea} descripcion={arregloTareas[iter].props.descripcion} estadoRecibido={true} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />);
 
                 } else {
+                    arregloTareas.splice(iter, 1, <Tarea key={idTarea} id={idTarea} descripcion={arregloTareas[iter].props.descripcion} estadoRecibido={false} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />);
 
-                    nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={false} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />
                 }
-
-                console.log("posterior a un cambio")
-                console.log(nuevoArreglo)
-
-                /*setArregloTareas(nuevoArreglo)
-
-                setArregloTareas(() => {
-                    return nuevoArreglo
-                })*/
-
+                setArregloTareas(arregloTareas);
             }
             iter++;
 
-        } while (!encontrado && iter < cantElem)
-
+        } while (!encontrado && iter < cantElem);
     };
 
-    const borrarTarea = (id, estadoTarea) => {
+    const borrarTarea = (idTarea, estadoTarea) => {
 
         setTareasTotales(prevTareasTotales => {
             return prevTareasTotales - 1
@@ -108,22 +86,19 @@ const Home = () => {
             });
         }
 
-        /*
-        var nuevoArregloBorrado = [...arregloTareas];
-        nuevoArregloBorrado = nuevoArregloBorrado.filter(tarea => tarea.props.id != id)
-        console.log("nuevo arreglo borrado")
-        console.log(nuevoArregloBorrado)
-        setArregloTareas(nuevoArregloBorrado);
-        */
+        var iter = 0
+        var cantElem = arregloTareas.length
+        var encontrado = false
 
-        setArregloTareas(prevArregloTareas => {
-            return prevArregloTareas.filter(tarea => tarea.props.id != id)
-        });
+        do {
+            if(arregloTareas[iter].props.id == idTarea){
+                var idIndice = iter;
+            }
+            iter++;
+        } while (!encontrado && iter < cantElem)
 
-        //arregloTareas.push("unString")
-
-        console.log("arreglo de tareas posterior a borrar una tarea");
-        console.log(arregloTareas);
+        arregloTareas.splice(idIndice, 1);
+        setArregloTareas(arregloTareas);
     }
 
     const filtrarTareas = (valor) => {
@@ -149,11 +124,11 @@ const Home = () => {
                         <div>Tareas Completas: {tareasCompletas}/{tareasTotales}</div>
                     </div>
 
-                    {tareasTotales == tareasCompletas && <CartelSimple mensaje={sinTarea} tipoCartel={"default"}/>}
+                    {tareasTotales == tareasCompletas && <CartelSimple descripcion={sinTarea} tipoCartel={"default"}/>}
 
                     {
                         (
-                            arregloTareas.filter(tarea => tarea.props.mensaje.includes(valorFiltro)).map((tareaEnColeccion) => {
+                            arregloTareas.filter(tarea => tarea.props.descripcion.includes(valorFiltro)).map((tareaEnColeccion) => {
                                 return tareaEnColeccion;
                             })
                         )

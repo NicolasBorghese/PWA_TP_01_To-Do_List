@@ -1,6 +1,6 @@
 import style from "./CartelSimple.module.css";
 
-const CartelSimple = ({mensaje, colorCartel}) => {
+const CartelSimple = ({descripcion, colorCartel}) => {
 
     var colorFondo = style.fondoDefault;
     
@@ -18,7 +18,7 @@ const CartelSimple = ({mensaje, colorCartel}) => {
 
     return (
         <div className={style.cartelSimple + " " + colorFondo}>
-            {mensaje}
+            {descripcion}
         </div>
     )
 }

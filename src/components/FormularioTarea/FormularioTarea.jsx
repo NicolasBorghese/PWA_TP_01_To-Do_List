@@ -11,7 +11,7 @@ const FormularioTarea = ({onClickHandler, idNuevaTarea, funcionCompletar, funcio
     }
 
     const handleClick = () => {
-        const nuevaTarea = <Tarea key={idNuevaTarea} id={idNuevaTarea} mensaje={descripcion} estadoRecibido={false} funcionCompletar={funcionCompletar} funcionBorrar={funcionBorrar}/>
+        const nuevaTarea = <Tarea key={idNuevaTarea} id={idNuevaTarea} descripcion={descripcion} estadoRecibido={false} funcionCompletar={funcionCompletar} funcionBorrar={funcionBorrar}/>
         onClickHandler(nuevaTarea);
         setDescripcion("");
     }
