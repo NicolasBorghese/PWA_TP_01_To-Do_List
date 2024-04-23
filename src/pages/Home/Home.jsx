@@ -31,22 +31,18 @@ const Home = () => {
     const agregarTarea = (tarea) => {
         arregloTareas.push(tarea);
         setArregloTareas(arregloTareas);
+        /*setArregloTareas(prevArregloTareas => {
+            return prevArregloTareas.push(tarea)
+        })*/
         setTareasTotales(tareasTotales + 1);
-        setIdNuevaTarea(idNuevaTarea + 1);
-    }
 
-    /*const completarTarea = (estaCompleta) => {
-        if(estaCompleta){
-            console.log("Sumo +1")
-            setTareasCompletas(tareasCompletas + 1);
-            console.log(tareasCompletas)
-        } else {
-            setTareasCompletas(tareasCompletas - 1);
-            console.log("Resto -1")
-            console.log(tareasCompletas)
-        }
-        console.log(tareasCompletas)
-    }*/
+        setIdNuevaTarea(prevIdNuevaTarea => {
+            return prevIdNuevaTarea + 1
+        });
+
+        console.log("Agrego tareas")
+        console.log(arregloTareas)
+    }
 
     const completarTarea = (estaCompleta, idTarea) => {
         /*
@@ -64,12 +60,18 @@ const Home = () => {
         var cantElem = arregloTareas.length
         var encontrado = false
 
+        console.log("arreglo de tareas previo a completar Tarea")
+        console.log(arregloTareas)
+
         do {
 
             if(arregloTareas[iter].props.id == idTarea){
 
-                const nuevoArreglo = [...arregloTareas]
+                const nuevoArreglo = [...arregloTareas];
 
+                console.log("previo a un cambio")
+                console.log(nuevoArreglo)
+                
                 if (estaCompleta){
                     nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={true} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />
 
@@ -77,10 +79,15 @@ const Home = () => {
 
                     nuevoArreglo[iter] = <Tarea key={idTarea} id={idTarea} mensaje={arregloTareas[iter].props.mensaje} estadoRecibido={false} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />
                 }
-                
+
+                console.log("posterior a un cambio")
+                console.log(nuevoArreglo)
+
+                /*setArregloTareas(nuevoArreglo)
+
                 setArregloTareas(() => {
                     return nuevoArreglo
-                })
+                })*/
 
             }
             iter++;
@@ -88,63 +95,35 @@ const Home = () => {
         } while (!encontrado && iter < cantElem)
 
     };
-    
-    /*const borrarTarea = (id) => {
-        var iterTarea = 0;
-        var tareaEncontrada = false;
-        var cantTareas = arregloTareas.length;
-        //var nuevoArreglo = arregloTareas;
-
-        do {
-
-            if(arregloTareas[iterTarea].props.id == id){
-                tareaEncontrada = true;
-                //nuevoArreglo.splice(iterTarea, 1);
-                console.log(arregloTareas);
-                //const nuevoArregloTareas = arregloTareas.filter(tarea => tarea.props.id !== id);
-                const nuevoArreglo = arregloTareas.splice(iterTarea, 1);
-                setArregloTareas(nuevoArreglo);
-                console.log(arregloTareas);
-            }
-            iterTarea++;
-
-        } while (!tareaEncontrada && iterTarea < cantTareas);
-    }*/
-
-    /*const borrarTarea = (id) => {
-        // Filtrar el arreglo de tareas para excluir la tarea con el ID dado
-        const nuevoArregloTareas = arregloTareas.filter(tarea => tarea.props.id !== id);
-        console.log("Arreglo De tareas en la función");
-        console.log(nuevoArregloTareas)
-        // Actualizar el estado arregloTareas con el nuevo arreglo filtrado
-        setArregloTareas(nuevoArregloTareas);
-    };*/
-
-    /*const borrarTarea = (id) => {
-        // Crear una copia del arreglo de tareas
-        const nuevoArregloTareas = [...arregloTareas];
-        // Encontrar el índice de la tarea con el ID dado
-        const indice = nuevoArregloTareas.findIndex(tarea => tarea.props.id === id);
-        // Si se encontró la tarea, eliminarla del arreglo
-        if (indice !== -1) {
-            nuevoArregloTareas.splice(indice, 1);
-            // Actualizar el estado con el nuevo arreglo sin la tarea eliminada
-            setArregloTareas(nuevoArregloTareas);
-        }
-    };*/
 
     const borrarTarea = (id, estadoTarea) => {
+
         setTareasTotales(prevTareasTotales => {
             return prevTareasTotales - 1
         });
+
         if (estadoTarea){
             setTareasCompletas(prevTareasCompletas => {
                 return prevTareasCompletas - 1
             });
         }
-        setArregloTareas(prevArregloTareas => { 
-            return prevArregloTareas.filter(tarea => tarea.props.id != id) 
+
+        /*
+        var nuevoArregloBorrado = [...arregloTareas];
+        nuevoArregloBorrado = nuevoArregloBorrado.filter(tarea => tarea.props.id != id)
+        console.log("nuevo arreglo borrado")
+        console.log(nuevoArregloBorrado)
+        setArregloTareas(nuevoArregloBorrado);
+        */
+
+        setArregloTareas(prevArregloTareas => {
+            return prevArregloTareas.filter(tarea => tarea.props.id != id)
         });
+
+        //arregloTareas.push("unString")
+
+        console.log("arreglo de tareas posterior a borrar una tarea");
+        console.log(arregloTareas);
     }
 
     const filtrarTareas = (valor) => {
@@ -180,13 +159,6 @@ const Home = () => {
                         )
                     }
 
-                    {/*
-                        filtroActivado && (
-                            arregloFiltrado.map((tareaEnColeccion) => {
-                                    return tareaEnColeccion;
-                            })
-                        )
-                    */}
                 </div>
             </div>
             <PieDePagina />

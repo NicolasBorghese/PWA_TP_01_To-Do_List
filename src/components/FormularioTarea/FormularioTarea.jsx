@@ -19,8 +19,8 @@ const FormularioTarea = ({onClickHandler, idNuevaTarea, funcionCompletar, funcio
     return (
         <div className={style.contenedorDescripcion}>
             <div className={style.descripcionTarea}> Describa la tarea </div>
-            <input type="text"  className={style.inputDescripcion} onChange={handleChange} value={descripcion}></input>
-            <button className={style.botonAgregar} onClick={handleClick}> + </button>
+            <input type="text" className={style.inputDescripcion} onChange={handleChange} value={descripcion}></input>
+            <button type="submit" className={style.botonAgregar} onClick={handleClick}> + </button>
         </div>
     )
 }

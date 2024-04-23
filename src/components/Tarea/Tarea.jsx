@@ -1,7 +1,5 @@
 import { useState } from "react";
 import style from "./Tarea.module.css";
-import BotonBorrar from "../BotonBorrar/BotonBorrar";
-import BotonCompletar from "../BotonCompletar/BotonCompletar";
 import CartelSimple from "../CartelSimple/CartelSimple";
 
 const Tarea = ({id, mensaje, estadoRecibido, funcionCompletar, funcionBorrar}) => {
@@ -56,8 +54,8 @@ const Tarea = ({id, mensaje, estadoRecibido, funcionCompletar, funcionBorrar}) =
                 <div className={`${style.estadoTarea} ${colorFondo}`}>
                     {estadoTareaTexto}
                 </div>
-                <BotonCompletar tipoBoton={botonCompletar} funcion={modificarEstado}/>
-                <BotonBorrar funcionBorrar={borrarTarea}/>
+                <button className={estado ? style.botonReiniciar : style.botonCompletar} onClick={modificarEstado}>{botonCompletar}</button>
+                <button className={style.botonBorrar} onClick={borrarTarea}>Borrar</button>
             </div>
             <CartelSimple mensaje={mensaje} colorCartel={colorCartel} />
         </div>
