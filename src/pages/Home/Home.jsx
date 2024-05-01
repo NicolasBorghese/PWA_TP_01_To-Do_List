@@ -6,139 +6,176 @@ import InputBuscarTarea from "../../components/InputBuscarTarea/InputBuscarTarea
 import FormularioTarea from "../../components/FormularioTarea/FormularioTarea";
 import CartelSimple from "../../components/CartelSimple/CartelSimple";
 import PieDePagina from "../../components/PieDePagina/PieDePagina";
-import Tarea from "../../components/Tarea/Tarea"
+import Tarea from "../../components/Tarea/Tarea";
 
-const tituloApp = "To-Do List"
-const sinTarea = "No hay tareas pendientes, puede descansar"
+const tituloApp = "To-Do List";
+const sinTarea = "No hay tareas pendientes, puede descansar";
+
+//Muy buen trabajo
+//Tremenda la interfaz, me encanto. Muy original.
+
+//Observaciones
+//eviten usar var, si la variable no cambia es const y si no let.
+//No es muy recomendable usar un useState para valores que llegan por props:   const [estado, setEstado] = useState(estadoRecibido);
+//Lo mejor hubiera sido utilizar siempre en Tarea estadoRecibido y actualizarlo via funcionCompletar o funcionBorrar. El estado va a cambiar por esas funciones
+//Y como es una prop del componente, vas a ver el cambio en el re-render. De esa manera te evitas tener como 'dos fuentes de verdad' del valor de un estado
+//Eso puede llevar a bugs o inconsistencias si te olvidas de actualizar una.
+
+//Podrian agregar algunas imagenes de como se ve la aplicacion corriendo al readme?
+//Intenten instalar prettier o algun identador automatico para que el codigo quede mas ordenado y facil de leer.
 
 const Home = () => {
+  const [tareasTotales, setTareasTotales] = useState(0);
+  const [tareasCompletas, setTareasCompletas] = useState(0);
+  const [idNuevaTarea, setIdNuevaTarea] = useState(0);
+  const [formularioAgregarTarea, setFormularioAgregarTarea] = useState(false);
+  const [arregloTareas, setArregloTareas] = useState([]);
+  const [valorFiltro, setValorFiltro] = useState("");
 
-    const [tareasTotales, setTareasTotales] = useState(0);
-    const [tareasCompletas, setTareasCompletas] = useState(0);
-    const [idNuevaTarea, setIdNuevaTarea] = useState(0);
-    const [formularioAgregarTarea, setFormularioAgregarTarea] = useState(false);
-    const [arregloTareas, setArregloTareas] = useState([]);
-    const [valorFiltro, setValorFiltro] = useState("");
-
-    const activarFormularioAgregarTarea = (valorFormulario) => {
-        if (valorFormulario){
-            setFormularioAgregarTarea(false);
-        } else {
-            setFormularioAgregarTarea(true);
-        }
+  const activarFormularioAgregarTarea = (valorFormulario) => {
+    if (valorFormulario) {
+      setFormularioAgregarTarea(false);
+    } else {
+      setFormularioAgregarTarea(true);
     }
+  };
 
-    const agregarTarea = (tarea) => {
+  const agregarTarea = (tarea) => {
+    arregloTareas.push(tarea);
+    setArregloTareas(arregloTareas);
 
-        arregloTareas.push(tarea);
-        setArregloTareas(arregloTareas);
+    setTareasTotales(tareasTotales + 1);
 
-        setTareasTotales(tareasTotales + 1);
+    setIdNuevaTarea((prevIdNuevaTarea) => {
+      return prevIdNuevaTarea + 1;
+    });
+  };
 
-        setIdNuevaTarea(prevIdNuevaTarea => {
-            return prevIdNuevaTarea + 1
-        });
-    }
-
-    const completarTarea = (estaCompleta, idTarea) => {
-        /*
+  const completarTarea = (estaCompleta, idTarea) => {
+    /*
         La lógica detrás de esta estructura es utilizar la versión de la función setState que acepta una función como argumento en lugar de un valor directo. Esta función de actualización del estado recibe el estado anterior como argumento y devuelve el nuevo estado.
         */
-        setTareasCompletas(prevTareasCompletas => {
-            if (estaCompleta) {
-                return prevTareasCompletas + 1;
-            } else {
-                return prevTareasCompletas - 1;
-            }
-        });
+    setTareasCompletas((prevTareasCompletas) => {
+      if (estaCompleta) {
+        return prevTareasCompletas + 1;
+      } else {
+        return prevTareasCompletas - 1;
+      }
+    });
 
-        var iter = 0
-        var cantElem = arregloTareas.length
-        var encontrado = false
+    var iter = 0;
+    var cantElem = arregloTareas.length;
+    var encontrado = false;
 
-        do {
-
-            if(arregloTareas[iter].props.id == idTarea){
-                
-                if (estaCompleta){
-                    arregloTareas.splice(iter, 1, <Tarea key={idTarea} id={idTarea} descripcion={arregloTareas[iter].props.descripcion} estadoRecibido={true} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />);
-
-                } else {
-                    arregloTareas.splice(iter, 1, <Tarea key={idTarea} id={idTarea} descripcion={arregloTareas[iter].props.descripcion} estadoRecibido={false} funcionCompletar={arregloTareas[iter].props.funcionCompletar} funcionBorrar={arregloTareas[iter].props.funcionBorrar} />);
-
-                }
-                setArregloTareas(arregloTareas);
-            }
-            iter++;
-
-        } while (!encontrado && iter < cantElem);
-    };
-
-    const borrarTarea = (idTarea, estadoTarea) => {
-
-        setTareasTotales(prevTareasTotales => {
-            return prevTareasTotales - 1
-        });
-
-        if (estadoTarea){
-            setTareasCompletas(prevTareasCompletas => {
-                return prevTareasCompletas - 1
-            });
+    do {
+      if (arregloTareas[iter].props.id == idTarea) {
+        if (estaCompleta) {
+          arregloTareas.splice(
+            iter,
+            1,
+            <Tarea
+              key={idTarea}
+              id={idTarea}
+              descripcion={arregloTareas[iter].props.descripcion}
+              estadoRecibido={true}
+              funcionCompletar={arregloTareas[iter].props.funcionCompletar}
+              funcionBorrar={arregloTareas[iter].props.funcionBorrar}
+            />
+          );
+        } else {
+          arregloTareas.splice(
+            iter,
+            1,
+            <Tarea
+              key={idTarea}
+              id={idTarea}
+              descripcion={arregloTareas[iter].props.descripcion}
+              estadoRecibido={false}
+              funcionCompletar={arregloTareas[iter].props.funcionCompletar}
+              funcionBorrar={arregloTareas[iter].props.funcionBorrar}
+            />
+          );
         }
-
-        var iter = 0
-        var cantElem = arregloTareas.length
-        var encontrado = false
-
-        do {
-            if(arregloTareas[iter].props.id == idTarea){
-                var idIndice = iter;
-            }
-            iter++;
-        } while (!encontrado && iter < cantElem)
-
-        arregloTareas.splice(idIndice, 1);
         setArregloTareas(arregloTareas);
+      }
+      iter++;
+    } while (!encontrado && iter < cantElem);
+  };
+
+  const borrarTarea = (idTarea, estadoTarea) => {
+    setTareasTotales((prevTareasTotales) => {
+      return prevTareasTotales - 1;
+    });
+
+    if (estadoTarea) {
+      setTareasCompletas((prevTareasCompletas) => {
+        return prevTareasCompletas - 1;
+      });
     }
 
-    const filtrarTareas = (valor) => {
+    var iter = 0;
+    var cantElem = arregloTareas.length;
+    var encontrado = false;
 
-        setValorFiltro (() => {
-            return valor
-        })
-    }
+    do {
+      if (arregloTareas[iter].props.id == idTarea) {
+        var idIndice = iter;
+      }
+      iter++;
+    } while (!encontrado && iter < cantElem);
 
-    return (
-        <div>
-            <div className={style.cuerpoPagina}>
-                <TituloPrincipal texto={tituloApp}/>
-                <div className={style.contenedor}>
-                    <div className={style.barraAgregarTareas}>
-                        <BotonAgregarTarea onClickHandler={activarFormularioAgregarTarea} valorFormulario={formularioAgregarTarea}/>
-                        <InputBuscarTarea onChangeHandler={filtrarTareas}/>
-                    </div>
+    arregloTareas.splice(idIndice, 1);
+    setArregloTareas(arregloTareas);
+  };
 
-                    {formularioAgregarTarea && <FormularioTarea onClickHandler={agregarTarea} idNuevaTarea={idNuevaTarea} funcionCompletar={completarTarea} funcionBorrar={borrarTarea}/>}
-                    
-                    <div className={style.contadorTareas}>
-                        <div>Tareas Completas: {tareasCompletas}/{tareasTotales}</div>
-                    </div>
+  const filtrarTareas = (valor) => {
+    setValorFiltro(() => {
+      return valor;
+    });
+  };
 
-                    {tareasTotales == tareasCompletas && <CartelSimple descripcion={sinTarea} tipoCartel={"default"}/>}
+  return (
+    <div>
+      <div className={style.cuerpoPagina}>
+        <TituloPrincipal texto={tituloApp} />
+        <div className={style.contenedor}>
+          <div className={style.barraAgregarTareas}>
+            <BotonAgregarTarea
+              onClickHandler={activarFormularioAgregarTarea}
+              valorFormulario={formularioAgregarTarea}
+            />
+            <InputBuscarTarea onChangeHandler={filtrarTareas} />
+          </div>
 
-                    {
-                        (
-                            arregloTareas.filter(tarea => tarea.props.descripcion.includes(valorFiltro)).map((tareaEnColeccion) => {
-                                return tareaEnColeccion;
-                            })
-                        )
-                    }
+          {formularioAgregarTarea && (
+            <FormularioTarea
+              onClickHandler={agregarTarea}
+              idNuevaTarea={idNuevaTarea}
+              funcionCompletar={completarTarea}
+              funcionBorrar={borrarTarea}
+            />
+          )}
 
-                </div>
+          <div className={style.contadorTareas}>
+            <div>
+              Tareas Completas: {tareasCompletas}/{tareasTotales}
             </div>
-            <PieDePagina />
+          </div>
+
+          {tareasTotales == tareasCompletas && (
+            <CartelSimple descripcion={sinTarea} tipoCartel={"default"} />
+          )}
+
+          {arregloTareas
+            .filter((tarea) => tarea.props.descripcion.includes(valorFiltro))
+            .map((tareaEnColeccion) => {
+              return tareaEnColeccion;
+            })}
         </div>
-    )
-}
+      </div>
+      <PieDePagina />
+    </div>
+  );
+};
 
 export default Home;
